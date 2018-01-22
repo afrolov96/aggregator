@@ -1,10 +1,33 @@
 package main;
 
+
+import org.hibernate.annotations.BatchSize;
+
+import javax.persistence.*;
+
+@Entity
+@Table
+@BatchSize(size = 10)
 public class Item {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    Long id;
+
+    @Column
     private String guid;
     private String title;
     private String description;
     private String pubDate;
+
+    public Item(String guid, String title, String description, String pubDate) {
+        this.guid = guid;
+        this.title = title;
+        this.description = description;
+        this.pubDate = pubDate;
+    }
+
+    public Item() {
+    }
 
     public String getGuid() {
         return guid;

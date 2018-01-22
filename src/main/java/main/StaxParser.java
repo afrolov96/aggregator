@@ -7,12 +7,11 @@ import com.mashape.unirest.request.GetRequest;
 import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.XMLStreamReader;
 import javax.xml.stream.events.XMLEvent;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main {
+public class StaxParser {
 
     public static void main(String[] args) throws UnirestException, IOException, XMLStreamException {
         GetRequest request = Unirest.get("https://lenta.ru/rss/news");
@@ -32,6 +31,7 @@ public class Main {
                         if (event == XMLEvent.END_ELEMENT && "item".equals(reader.getLocalName())) {
                             itemList.add(item);
                             break;
+
                         }
                         if (event == XMLEvent.START_ELEMENT && "guid".equals(reader.getLocalName())) {
                             item.setGuid(reader.getElementText());
